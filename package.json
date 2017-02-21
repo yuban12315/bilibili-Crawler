@@ -1,0 +1,19 @@
+{
+  "name": "yuban12315",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuban12315/bilibili-Crawler.git"
+  },
+  "author": "yuban12315",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuban12315/bilibili-Crawler/issues"
+  },
+  "homepage": "https://github.com/yuban12315/bilibili-Crawler#readme"
+}
