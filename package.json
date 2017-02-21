@@ -1,7 +1,7 @@
 {
   "name": "yuban12315",
   "version": "1.0.0",
-  "description": "",
+  "description": "crawler",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,5 +15,15 @@
   "bugs": {
     "url": "https://github.com/yuban12315/bilibili-Crawler/issues"
   },
-  "homepage": "https://github.com/yuban12315/bilibili-Crawler#readme"
+  "homepage": "https://github.com/yuban12315/bilibili-Crawler#readme",
+  "dependencies": {
+    "async": "^2.1.5",
+    "cheerio": "^0.22.0",
+    "mongoose": "^4.8.4",
+    "superagent": "^3.4.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-preset-es2015": "^6.22.0"
+  }
 }
