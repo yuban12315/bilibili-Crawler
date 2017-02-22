@@ -20,7 +20,8 @@ var video_Schema = new mongoose.Schema({
         }
     },
     av_number: {
-        type: Number
+        type: Number,
+        required:true
     },
     upload_time: {
         type: Date
@@ -47,16 +48,13 @@ var video_Schema = new mongoose.Schema({
     }
 }, {collection: 'video'})
 
-video_Schema.path('data').validate((data)=> {
-    if (!data)return false
-    else if (data.length === 0) return false
-    return true
-},'video.data is required')
 
-video_Schema.static('findLast', function () {
+video_Schema.static('findLast', function (cb) {
     this.findOne().sort({'record_time': -1}).exec((err, res)=> {
-        if (res.length === 0) return 0
-        else return res.av_number
+        if (res===null){
+            cb(err,0)
+        }
+        else cb(err,res)
     })
 })
 

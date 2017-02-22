@@ -1,18 +1,31 @@
-/**
- * Created by miku on 2017/2/22.
- */
-var req=require('superagent-charset')(require('superagent'))
-var cheerio=require('cheerio')
-var video=require('./video_Schema')
+var req = require('superagent-charset')(require('superagent'))
+var cheerio = require('cheerio')
+var async = require('async')
+var video = require('./video_Schema')
+
 class base {
     constructor() {
         this.base_url = 'http://www.bilibili.com/'
     }
-    *get_av(){
-         //var av_number=yield video.findLast()
-        console.log(av_number)
+
+    get_last_video(cb) {
+        async.waterfall([
+            (cb)=> {
+                video.findLast((err, res)=> {
+                    if(err) console.log(err)
+                 cb(null,res)
+                })
+            },
+            (number,cb)=>{
+                cb(null,number)
+            }
+        ], (err, res)=> {
+            cb(err,res)
+        })
     }
 }
-var n=new base()
-n.get_av().next()
+var n = new base()
+n.get_last_video((err,res)=>{
+
+})
 
