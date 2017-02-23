@@ -1,4 +1,13 @@
 var mongoose=require('mongoose')
-mongoose.connect('mongodb://127.0.0.1/bilibili_data');
+var config=require('./config')
+var opt={
+    user: config.user,
+    pass: config.pass,
+    auth: {
+        authdb: config.db
+    }
+}
+mongoose.connect(config.url,opt);
+
 mongoose.Promise = global.Promise
 module.exports=mongoose;
