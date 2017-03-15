@@ -3,7 +3,7 @@ let cheerio = require('cheerio')
 let async = require('async')
 let video = require('./video_Schema')
 
-class base {
+class video_crawler {
     //爬虫类，爬取bilibili的视频的信息，信息结构定义在video_Schema内
     //调用get_video即可开始爬取数据
     constructor() {
@@ -123,5 +123,5 @@ class base {
         })
     }
 }
-module.exports = new base()
+module.exports = new video_crawler()
 
