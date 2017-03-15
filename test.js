@@ -1,11 +1,4 @@
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+let res=1
+if(res===undefined||res.text===undefined){
+    console.log('sd')
 }
-
-async function demo() {
-    console.log('Taking a break...');
-    await sleep(2000);
-    console.log('Two second later');
-}
-
-demo();

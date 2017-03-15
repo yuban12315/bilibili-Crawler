@@ -19,9 +19,12 @@
   "dependencies": {
     "async": "^2.1.5",
     "cheerio": "^0.22.0",
+    "encoding": "^0.1.12",
+    "iconv-lite": "^0.4.15",
     "mongoose": "^4.8.4",
     "superagent": "^3.4.4",
-    "superagent-charset": "^1.1.1"
+    "superagent-charset": "^1.1.1",
+    "superagent-retry": "^0.6.0"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",

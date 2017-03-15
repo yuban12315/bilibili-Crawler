@@ -1,5 +1,5 @@
-var mongoose = require('../mongo')
-var video_Schema = new mongoose.Schema({
+let mongoose = require('../mongo')
+let video_Schema = new mongoose.Schema({
     title: {
         type: String,
         required: [true, 'video.name is required']
@@ -39,7 +39,11 @@ var video_Schema = new mongoose.Schema({
     msg: {
         type: String
     },
-    tag: {
+    tag_1: {
+        type: String,
+        index: true
+    },
+    tag_2:{
         type: String,
         index: true
     },
@@ -50,12 +54,15 @@ var video_Schema = new mongoose.Schema({
 
 
 video_Schema.static('findLast', function (cb) {
-    this.findOne().sort({'record_time': -1}).exec((err, res)=> {
+    //返回数据库最后一条记录
+    this.findOne().sort({'av_number': -1}).exec((err, res)=> {
         if (res===null){
             cb(err,0)
         }
-        else cb(err,res)
+        else cb(err,res.av_number+1)
     })
 })
 
-module.exports = mongoose.model('video', video_Schema)
+let video=mongoose.model('video', video_Schema)
+
+module.exports = video
