@@ -19,7 +19,7 @@ class video_crawler {
                 //从数据库中获取最新一条数据
                 video.findLast((err, res) => {
                     if (err) console.log(err)
-                    cb(err, res)
+                    cb(err, res.av_number)
                 })
             },
             (number, cb) => {
