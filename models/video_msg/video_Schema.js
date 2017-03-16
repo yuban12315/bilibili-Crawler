@@ -65,10 +65,5 @@ video_Schema.static('findLast', function (cb) {
 })
 
 let video=mongoose.model('video', video_Schema)
-video.findLast((err,res)=>{
-    "use strict";
-    if(err)console.log(err)
-    if(res)console.log(res)
-})
 
 module.exports = video
