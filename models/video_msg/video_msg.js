@@ -1,11 +1,11 @@
 let req = require('superagent-retry')(require('superagent'))
 let cheerio = require('cheerio')
 let async = require('async')
-let video = require('./video_Schema')
+let video = require('./../Schema/video_Schema')
 
 class video_crawler {
     //爬虫类，爬取bilibili的视频的信息，信息结构定义在video_Schema内
-    //调用get_video即可开始爬取数据
+    //调用get_video(),即可开始爬取数据
     constructor() {
         // set url
         this.base_url = 'http://www.bilibili.com/'
@@ -68,19 +68,19 @@ class video_crawler {
                     }
                     else {
                         //当前视频存在，开始分析HTML
-                        var $ = cheerio.load(res.text)
-                        var _video = {}
+                        let $ = cheerio.load(res.text)
+                        let _video = {}
                         _video.title = $("div.v-title>h1").text()
                         _video.av_number = av_number
                         _video.upload_time = $("time>i").text()
-                        var date = new Date()
+                        let date = new Date()
                         _video.record_time = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`
                         _video.uploader = $("a.name").attr('title')
-                        _video.url = `${this.base_url}/video/av${av_number}`
+                        _video.url = `${this.base_url}video/av${av_number}`
                         _video.msg = $('#v_desc').text()
                         _video.tag_1 = $('div.tminfo>span:nth-child(2)>a').text()
                         _video.tag_2 = $('div.tminfo>span:nth-child(3)>a').text()
-                        _video.existed = true
+                        _video.existed = existed
                         cb(null, _video)
                     }
                 })
@@ -113,7 +113,7 @@ class video_crawler {
             },
             (data, cb) => {
                 let new_video = new video(data)
-                //储存已抓取的数据
+                //储存已抓取的数据,也可修改此处代码，将data打印出来，不存数据库
                 new_video.save((err) => {
                     cb(err, data.av_number)
                 })

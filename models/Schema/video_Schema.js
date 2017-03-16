@@ -21,8 +21,8 @@ let video_Schema = new mongoose.Schema({
     },
     av_number: {
         type: Number,
-        index:true,
-        required:true
+        index: true,
+        required: true
     },
     upload_time: {
         type: Date
@@ -44,7 +44,7 @@ let video_Schema = new mongoose.Schema({
         type: String,
         index: true
     },
-    tag_2:{
+    tag_2: {
         type: String,
         index: true
     },
@@ -56,14 +56,15 @@ let video_Schema = new mongoose.Schema({
 
 video_Schema.static('findLast', function (cb) {
     //返回数据库最后一条记录
-    this.findOne({},{'av_number':1}).sort({'_id': -1}).exec((err, res)=> {
-        if (res===null){
-            cb(err,0)
+    this.findOne({}, {'av_number': 1}).sort({'_id': -1}).exec((err, res) => {
+        if (res === null) {
+            // 如果数据库内没有记录，返回 1
+            res = {av_number: 1}
         }
-        else cb(err,res)
+        cb(err, res)
     })
 })
 
-let video=mongoose.model('video', video_Schema)
+let video = mongoose.model('video', video_Schema)
 
 module.exports = video
