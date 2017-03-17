@@ -7,12 +7,12 @@
  process.exit(1)
  })*/
 
-/*//test get_movie method
+//test get_movie method
  let analyse=require('./models/video_analyse/video_analyse')
- analyse.get_movie((err,res)=>{
+ analyse.div_game({},(err,res)=>{
  "use strict";
  if(err)console.log(err)
  if(res)console.log(res)
  process.exit(1)
- })*/
+ })
 

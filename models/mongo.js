@@ -9,5 +9,5 @@ let opt={
 }
 mongoose.connect(config.url);
 
-mongoose.Promise = global.Promise
+//mongoose.Promise = global.Promise
 module.exports=mongoose;
