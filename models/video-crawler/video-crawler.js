@@ -34,10 +34,10 @@ class video_crawler {
                             cb(err, null)
                         }
                         if (err) {
-                            console.log('crawl av' + res + '     failed')
+                            console.log('$crawl av' + res + '     failed')
                         }
                         else {
-                            console.log('crawl av' + res + '     success')
+                            console.log('$crawl av' + res + '     success')
                         }
                     })
                     count++

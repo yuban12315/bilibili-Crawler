@@ -15,16 +15,20 @@ class bilibiliCrawler {
         this._base_url = 'http://www.bilibili.com'
         this._api_url = 'http://api.bilibili.com/'
     }
-    async crawl(url) {
+    async $crawl(url) {
         const userAgent = userAgents[parseInt(Math.random() * userAgents.length)]
         const res=await req.get(url).set({ 'User-Agent': userAgent })
         return res.text
     }
-    //抓取两次,一次是抓取api端口,一次是抓取视频页面获取更多信息
+
+    /**抓取完整视频数据
+     * @param av_number
+     * @return {video}
+     * */
     async get_video(av_number) {
         const _video={} //视频数据
         //https://api.bilibili.com/x/web-interface/view?aid=2
-        const res1=await this.crawl(`${this.api_url}archive_stat/stat?aid=${av_number}`)
+        const res1=await this.$crawl(`${this.api_url}archive_stat/stat?aid=${av_number}`)
         const json=JSON.parse(res1)
         if(json.code!==0) {
             throw new Error('该视频不存在')
@@ -36,7 +40,7 @@ class bilibiliCrawler {
             share: json.data.share//分享数
         }
 
-        const res2=await this.crawl(`${this.base_url}/video/av${av_number}`)
+        const res2=await this.$crawl(`${this.base_url}/video/av${av_number}`)
         /*const reg=/视频去哪了呢/g
         //视频不存在
         if(reg.test(res2)) {
@@ -61,9 +65,18 @@ class bilibiliCrawler {
         _video.existed = true
         return _video
     }
+
+    /**获取b站最新的视频的av号
+    * */
+    async get_new() {
+        const res=await this.$crawl(`${this.base_url}/newlist.html`)
+        const $=cheerio.load(res)
+        const av_number=Number.parseInt($('.vd_list>.l1>.preview').attr('href').split('/')[2].slice(2))
+        return av_number
+    }
 }
 const a=new bilibiliCrawler()
-const b=a.get_video(88)
+const b=a.get_new()
 b.then((res)=>{
 
     console.log(res)

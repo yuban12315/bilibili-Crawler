@@ -9,7 +9,7 @@
 const crawler=require('./models/cralwer/bilibili-crawler')
 
 try {
- crawler.crawl('https://www.bilibili.com/video/av4')
+ crawler.$crawl('https://www.bilibili.com/video/av4')
 }catch (e) {
  console.log(e)
 }
