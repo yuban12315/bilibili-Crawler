@@ -8,9 +8,24 @@
  })*/
 const crawler=require('./models/cralwer/bilibili-crawler')
 
-try {
- crawler.$crawl('https://www.bilibili.com/video/av4')
-}catch (e) {
- console.log(e)
-}
+const pLimit = require('p-limit')
 
+const limit = pLimit(1)
+
+const input = [
+    limit(setTimeout(()=>{
+        console.log(1)
+    },100)),
+    limit(setTimeout(()=>{
+        console.log(1)
+    },100)),
+    limit(setTimeout(()=>{
+        console.log(1)
+    },100))
+];
+
+(async () => {
+    // Only one promise is run at once
+    const result = await Promise.all(input)
+    console.log(result)
+})()
