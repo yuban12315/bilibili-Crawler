@@ -1,5 +1,5 @@
-let mongoose = require('../mongo')
-let video_Schema = new mongoose.Schema({
+const mongoose = require('../mongo')
+const video_Schema = new mongoose.Schema({
     title: {
         type: String,
         required: [true, 'video.name is required']
@@ -53,10 +53,9 @@ let video_Schema = new mongoose.Schema({
     }
 }, {collection: 'video'})
 
-
 video_Schema.static('findLast', function (cb) {
     //返回数据库最后一条记录
-    this.findOne({}, {'av_number': 1}).sort({'_id': -1}).exec((err, res) => {
+    this.findOne({}, {av_number: 1}).sort({_id: -1}).exec((err, res) => {
         if (res === null) {
             // 如果数据库内没有记录，返回 1
             res = {av_number: 1}
@@ -65,6 +64,6 @@ video_Schema.static('findLast', function (cb) {
     })
 })
 
-let video = mongoose.model('video', video_Schema)
+const video = mongoose.model('video', video_Schema)
 
-module.exports = video
+module.exports=video

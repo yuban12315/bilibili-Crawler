@@ -1,13 +1,13 @@
-let mongoose=require('mongoose')
-let config=require('./config')
-let opt={
+const mongoose=require('mongoose')
+const config=require('./config')
+const opt={
     user: config.user,
     pass: config.pass,
     auth: {
         authdb: config.db
     }
 }
-mongoose.connect(config.url);
+mongoose.connect(config.url,{ useMongoClient: true })
 
-//mongoose.Promise = global.Promise
-module.exports=mongoose;
+mongoose.Promise = global.Promise
+module.exports=mongoose

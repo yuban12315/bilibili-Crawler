@@ -6,13 +6,11 @@
  if(res)console.log(res)
  process.exit(1)
  })*/
+const crawler=require('./models/cralwer/bilibili-crawler')
 
-//test get_movie method
- let analyse=require('./models/video_analyse/video_analyse')
- analyse.div_game({},(err,res)=>{
- "use strict";
- if(err)console.log(err)
- if(res)console.log(res)
- process.exit(1)
- })
+try {
+ crawler.crawl('https://www.bilibili.com/video/av4')
+}catch (e) {
+ console.log(e)
+}
 

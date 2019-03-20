@@ -6,8 +6,8 @@
 抓取的数据保存在mongodb内
 
 抓取的信息如下Schema
-```
-let video_Schema = new mongoose.Schema({
+```js
+const video_Schema = new mongoose.Schema({
     title: {
         type: String,
         required: [true, 'video.name is required']
