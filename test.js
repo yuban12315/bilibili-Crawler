@@ -1,31 +1,10 @@
-/*
- //test mongoDB connection
- let video=require('./models/Schema/video_Schema')
- video.find({}).limit(20).exec((err, res)=> {
- if(err)console.log(err)
- if(res)console.log(res)
- process.exit(1)
- })*/
-const crawler=require('./models/cralwer/bilibili-crawler')
-
-const pLimit = require('p-limit')
-
-const limit = pLimit(1)
-
-const input = [
-    limit(setTimeout(()=>{
-        console.log(1)
-    },100)),
-    limit(setTimeout(()=>{
-        console.log(1)
-    },100)),
-    limit(setTimeout(()=>{
-        console.log(1)
-    },100))
-];
-
-(async () => {
-    // Only one promise is run at once
-    const result = await Promise.all(input)
-    console.log(result)
-})()
+const request = require('superagent')
+const userAgent='Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.12) Gecko/20070731 Ubuntu/dapper-security Firefox/1.5.0.12'
+request.get('http://122.10.92.246').set({ 'User-Agent': userAgent }).end((err,res)=>{
+    if(err) {
+        console.log(err)
+    }else {
+        console.log(res)
+    }
+})
+console.log(   '<html>\r\n<head>\r\n<meta http-equiv="Content-Language" content="zh-CN">\r\n<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=gb2312">\r\n<meta http-equiv="refresh" content="0.1;url=/act/pc/a20170515hlhd/index.php?act=1">\r\n<title></title>\r\n</head>\r\n<body>\r\n</body>\r\n</html>',)

@@ -1,7 +1,7 @@
-let req = require('superagent-retry')(require('superagent'))
-let cheerio = require('cheerio')
-let async = require('async')
-let video = require('./../Schema/video_Schema')
+const req = require('superagent-retry')(require('superagent'))
+const cheerio = require('cheerio')
+const async = require('async')
+const video = require('./../Schema/video_Schema')
 
 class video_crawler {
     //爬虫类，爬取bilibili的视频的信息，信息结构定义在video_Schema内
@@ -27,17 +27,17 @@ class video_crawler {
                 //count置为数据库中最新一条记录的av号
                 let count = number
                 //用setInterval连续抓取
-                let id = setInterval(() => {
+                const id = setInterval(() => {
                     this.crawl_video(count, (err, res) => {
                         if (err && err.msg === 'av号超出范围') {
                             clearInterval(id)
                             cb(err, null)
                         }
                         if (err) {
-                            console.log('$crawl av' + res + '     failed')
+                            console.log(`$crawl av${res}     failed`)
                         }
                         else {
-                            console.log('$crawl av' + res + '     success')
+                            console.log(`$crawl av${res}     success`)
                         }
                     })
                     count++
@@ -53,10 +53,10 @@ class video_crawler {
         async.waterfall([
             (cb) => {
                 req.get(`${this.base_url}/video/av${av_number}`).retry(5).end((err, res) => {
-                    let existed = true
+                    const existed = true
                     //判断服务器返回的数据
                     if (res === undefined || res.text===undefined) {
-                        cb(new Error("服务器无响应"), av_number)
+                        cb(new Error('服务器无响应'), av_number)
                     } else if (res.text.includes('z-msg')) {
                         cb(new Error('该视频不存在'), av_number)
                     }
@@ -68,14 +68,14 @@ class video_crawler {
                     }
                     else {
                         //当前视频存在，开始分析HTML
-                        let $ = cheerio.load(res.text)
-                        let _video = {}
-                        _video.title = $("div.v-title>h1").text()
+                        const $ = cheerio.load(res.text)
+                        const _video = {}
+                        _video.title = $('div.v-title>h1').text()
                         _video.av_number = av_number
-                        _video.upload_time = $("time>i").text()
-                        let date = new Date()
+                        _video.upload_time = $('time>i').text()
+                        const date = new Date()
                         _video.record_time = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`
-                        _video.uploader = $("a.name").attr('title')
+                        _video.uploader = $('a.name').attr('title')
                         _video.url = `${this.base_url}video/av${av_number}`
                         _video.msg = $('#v_desc').text()
                         _video.tag_1 = $('div.tminfo>span:nth-child(2)>a').text()
@@ -112,7 +112,7 @@ class video_crawler {
                 })
             },
             (data, cb) => {
-                let new_video = new video(data)
+                const new_video = new video(data)
                 //储存已抓取的数据,也可修改此处代码，将data打印出来，不存数据库
                 new_video.save((err) => {
                     cb(err, data.av_number)

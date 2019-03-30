@@ -24,6 +24,7 @@
     "iconv-lite": "^0.4.15",
     "mongoose": "^4.8.4",
     "p-limit": "^2.2.0",
+    "promise.map": "0.0.2",
     "shapefile": "^0.6.6",
     "superagent": "^3.4.4",
     "superagent-charset": "^1.1.1",
